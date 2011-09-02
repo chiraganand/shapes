@@ -20,16 +20,20 @@ public:
     ~DisplayWidget();
 
     void paintEvent(QPaintEvent *);
-    void mouseMoveEvent(QMouseEvent *);
     void initialiseRect();
+    void initialisePaths();
+    void mouseMoveEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent *);
 
 private:
     Ui::DisplayWidget *ui;
     QPen m_pen;
-    int m_x;
-    int m_y;
-    QPainterPath m_path;
+    QPointF m_currentPoint;
+    QList<QPainterPath> m_pathList;
+    QList<QPainterPath> m_circleList;
     QVector<QPointF> m_points;
+    bool m_enableDrag;
+    int m_changedPathIndex;
 };
 
 #endif // DISPLAYWIDGET_H
