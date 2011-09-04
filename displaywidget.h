@@ -6,17 +6,15 @@
 #include <QPen>
 #include <QPainter>
 #include <QPaintEvent>
-
-namespace Ui {
-    class DisplayWidget;
-}
+#include <QStyle>
+#include <QStyleOption>
 
 class DisplayWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit DisplayWidget(QWidget *parent = 0);
+    explicit DisplayWidget(QWidget *parent);
     ~DisplayWidget();
 
     void paintEvent(QPaintEvent *);
@@ -27,7 +25,6 @@ public:
     void mouseReleaseEvent(QMouseEvent *);
 
 private:
-    Ui::DisplayWidget *ui;
     QPen m_pen;
     QPointF m_currentPoint;
     QList<QPainterPath> m_pathList;

@@ -11,8 +11,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
+	mainwidget.cpp \
         displaywidget.cpp
 
-HEADERS  += displaywidget.h
+HEADERS  += mainwidget.h \
+	displaywidget.h
 
-FORMS    += displaywidget.ui
+FORMS    += mainwidget.ui \
+	displaywidget.ui

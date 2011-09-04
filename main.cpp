@@ -1,10 +1,10 @@
 #include <QtGui/QApplication>
-#include "displaywidget.h"
+#include "mainwidget.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    DisplayWidget w;
+    MainWidget w;
 
     w.show();
     return a.exec();

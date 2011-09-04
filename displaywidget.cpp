@@ -2,25 +2,26 @@
 #include "ui_displaywidget.h"
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::DisplayWidget)
+    QWidget(parent)
 {
-    ui->setupUi(this);
-
     m_enableDrag = false;
     m_pen.setStyle(Qt::SolidLine);
     m_pen.setColor(QColor("Black"));
     m_pen.setWidth(1);
+    setStyleSheet("background-color: white");
 }
 
 DisplayWidget::~DisplayWidget()
 {
-    delete ui;
 }
 
 void DisplayWidget::paintEvent(QPaintEvent *)
 {
+    QStyleOption options;
+    options.init(this);
+
     QPainter painter(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &options, &painter, this);
     painter.setPen(m_pen);
     int i;
 
