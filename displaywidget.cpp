@@ -30,12 +30,13 @@ void DisplayWidget::paintEvent(QPaintEvent *)
         for (i=0; i<m_points.count(); i++) {
             painter.drawEllipse(m_points.at(i), 4, 4);
         }
+    } else if (m_enableDrag) {
+        painter.drawEllipse(m_currentPoint, 4, 4);
     }
+
     if (m_pathList.isEmpty()) {
         initialisePaths();
     }
-
-    painter.drawEllipse(m_currentPoint, 4, 4);
 
     QPainterPath path;
     foreach (path, m_pathList) {
@@ -92,7 +93,8 @@ void DisplayWidget::mouseMoveEvent(QMouseEvent *event)
         if (m_changedPathIndex != 0) {
             m_pathList[m_changedPathIndex-1].setElementPositionAt(1, m_currentPoint.x(), m_currentPoint.y());
             m_pathList[m_changedPathIndex].setElementPositionAt(0, m_currentPoint.x(), m_currentPoint.y());
-        } else {    // 0th point is connected to the last in the list
+        } else {
+            /* 0th point is connected to the last in the list XXX: use a circular list? */
             m_pathList[m_pathList.count() - 1].setElementPositionAt(1, m_currentPoint.x(), m_currentPoint.y());
             m_pathList[m_changedPathIndex].setElementPositionAt(0, m_currentPoint.x(), m_currentPoint.y());
         }
@@ -108,8 +110,25 @@ void DisplayWidget::mousePressEvent(QMouseEvent *event)
         if (m_circleList.at(i).contains(m_currentPoint)) {
             m_enableDrag = true;
             m_changedPathIndex = i;
-            m_circleList.removeAt(i);
+            /* Replace the initial path with an empty one before a drag operation, so that it
+             * can be replaced by the new path at the end of the operation.
+             */
+            m_circleList[i] = QPainterPath();
         }
     }
     QWidget::update();
+}
+
+void DisplayWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    m_currentPoint = event->posF();
+
+    if (m_enableDrag) {
+        QPainterPath path;
+        path.addEllipse(m_currentPoint, 4, 4);
+        m_circleList[m_changedPathIndex] = path;
+
+        m_enableDrag = false;
+        QWidget::update();
+    }
 }

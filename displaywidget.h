@@ -24,6 +24,7 @@ public:
     void initialisePaths();
     void mouseMoveEvent(QMouseEvent *);
     void mousePressEvent(QMouseEvent *);
+    void mouseReleaseEvent(QMouseEvent *);
 
 private:
     Ui::DisplayWidget *ui;
