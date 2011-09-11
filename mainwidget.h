@@ -6,21 +6,15 @@
 #include <QHBoxLayout>
 
 #include "displaywidget.h"
-
-namespace Ui {
-    class MainWidget;
-}
+#include "toolbar.h"
 
 class MainWidget : public QWidget
 {
     Q_OBJECT
 
-public:
-    explicit MainWidget(QWidget *parent = 0);
-    ~MainWidget();
-
-private:
-    Ui::MainWidget *ui;
+    public:
+        explicit MainWidget(QWidget *parent = 0);
+        ~MainWidget();
 };
 
 #endif // MAINWIDGET_H
