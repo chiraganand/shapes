@@ -1,5 +1,4 @@
 #include "displaywidget.h"
-#include "ui_displaywidget.h"
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QWidget(parent)
@@ -132,4 +131,9 @@ void DisplayWidget::mouseReleaseEvent(QMouseEvent *event)
         m_enableDrag = false;
         QWidget::update();
     }
+}
+
+void DisplayWidget::slotCreateShape()
+{
+    qDebug() << __LINE__ << __func__ ;
 }
