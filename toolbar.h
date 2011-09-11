@@ -14,13 +14,19 @@ class ToolBar : public QWidget
         ~ToolBar();
 
     public slots:
-        void createShape();
+        void createTriangle();
+        void createSquare();
+        void createPentagon();
+        void createHexagon();
 
     signals:
-        void createNewShape();
+        void createNewShape(int);
 
     private:
-        QPushButton *m_button;
+        QPushButton *m_triangle;
+        QPushButton *m_square;
+        QPushButton *m_pentagon;
+        QPushButton *m_hexagon;
 };
 
 #endif

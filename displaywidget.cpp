@@ -24,13 +24,13 @@ void DisplayWidget::paintEvent(QPaintEvent *)
     painter.setPen(m_pen);
     int i;
 
-    if (m_points.isEmpty()) {
-        initialiseRect();
+    if (!m_points.isEmpty()) {
+//        initialiseRect();
         /* Create circles at edges */
         for (i=0; i<m_points.count(); i++) {
             painter.drawEllipse(m_points.at(i), 4, 4);
         }
-    } else if (m_enableDrag) {
+    if (m_enableDrag) {
         painter.drawEllipse(m_currentPoint, 4, 4);
     }
 
@@ -46,6 +46,7 @@ void DisplayWidget::paintEvent(QPaintEvent *)
     foreach (circlePath, m_circleList) {
         painter.drawPath(circlePath);
     }
+    }
 }
 
 void DisplayWidget::initialiseRect()
@@ -53,6 +54,52 @@ void DisplayWidget::initialiseRect()
     m_points << QPoint(10, 10);
     m_points << QPoint(110, 10);
     m_points << QPoint(110, 110);
+    m_points << QPoint(10, 110);
+}
+
+void DisplayWidget::initialiseTriangle()
+{
+    if (!m_points.isEmpty()) {
+        m_points.clear();
+    }
+    m_points << QPoint(10, 10);
+    m_points << QPoint(110, 10);
+    m_points << QPoint(50, 110);
+}
+
+void DisplayWidget::initialiseSquare()
+{
+    if (!m_points.isEmpty()) {
+        m_points.clear();
+    }
+    m_points << QPoint(10, 10);
+    m_points << QPoint(110, 10);
+    m_points << QPoint(110, 110);
+    m_points << QPoint(10, 110);
+}
+
+void DisplayWidget::initialisePentagon()
+{
+    if (!m_points.isEmpty()) {
+        m_points.clear();
+    }
+    m_points << QPoint(10, 10);
+    m_points << QPoint(110, 10);
+    m_points << QPoint(110, 110);
+    m_points << QPoint(50, 160);
+    m_points << QPoint(10, 110);
+}
+
+void DisplayWidget::initialiseHexagon()
+{
+    if (!m_points.isEmpty()) {
+        m_points.clear();
+    }
+    m_points << QPoint(10, 10);
+    m_points << QPoint(50, 60);
+    m_points << QPoint(110, 10);
+    m_points << QPoint(110, 110);
+    m_points << QPoint(50, 160);
     m_points << QPoint(10, 110);
 }
 
@@ -133,7 +180,23 @@ void DisplayWidget::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void DisplayWidget::slotCreateShape()
+void DisplayWidget::slotCreateShape(int sides)
 {
-    qDebug() << __LINE__ << __func__ ;
+    switch (sides) {
+        case 3:
+            initialiseTriangle();
+            break;
+
+        case 4:
+            initialiseSquare();
+            break;
+
+        case 5:
+            initialisePentagon();
+            break;
+
+        case 6:
+            initialiseHexagon();
+            break;
+    }
 }

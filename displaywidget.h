@@ -18,15 +18,20 @@ class DisplayWidget : public QWidget
         explicit DisplayWidget(QWidget *parent);
         ~DisplayWidget();
 
-        void paintEvent(QPaintEvent *);
         void initialiseRect();
         void initialisePaths();
+        void initialiseTriangle();
+        void initialiseSquare();
+        void initialisePentagon();
+        void initialiseHexagon();
+
+        void paintEvent(QPaintEvent *);
         void mouseMoveEvent(QMouseEvent *);
         void mousePressEvent(QMouseEvent *);
         void mouseReleaseEvent(QMouseEvent *);
 
     public slots:
-        void slotCreateShape();
+        void slotCreateShape(int);
 
     private:
         ToolBar *m_toolbar;
